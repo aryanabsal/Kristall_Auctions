@@ -1,0 +1,14 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h1>Search Results</h1>
+
+    <ul>
+        {% for item in results %}
+            <li><a href="{% url 'listing' item.id %}">{{ item.title }}</a></li>
+        {% empty %}
+             <p>Empty :( </p>
+        {% endfor %}
+    </ul>
+{% endblock %}
+

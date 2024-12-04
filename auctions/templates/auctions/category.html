@@ -1,0 +1,15 @@
+{% extends "auctions/layout.html" %}
+
+
+{% block body %}
+    {% for i in list %}
+            <h3>{{ i.category }}</h3>
+                <hr>
+            {% for item in list %}
+                {% if item.category == i.category %}
+                    <h5> {{ item.title }} </h5>
+                {% endif %}
+            {% endfor %}
+
+    {% endfor %}
+{% endblock %}

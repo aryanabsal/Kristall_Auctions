@@ -1,0 +1,40 @@
+{% extends "auctions/layout.html" %}
+
+
+{% block body %}
+    <h2 style="margin-left: 5px;">Active Listings</h2>
+
+    
+    <section class="shop_section layout_padding">
+        <div class="container">
+            <div class="row">
+                
+                {% for item in lists %}
+                    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); max-height: 23%; width: 23%; margin: .4em; text-align: center; font-family: arial; padding: .3em;">
+                        <a href=" {% url 'listing' item.id %} " style="text-decoration: none; color: rgb(107, 9, 198);">
+                        <img style=" border: .4em;" class="card-img-top" src="{{ item.image_url }}" alt="Card image cap">
+                        <p style="font-size: 1.7vw;">{{ item.title }}</p>
+                        <p class="price" style="color: grey; font-size: 1.2vw;">${{item.price}}</p>
+                        </a>
+
+
+                    {% if item in user.watchlist.all %}
+                        <a class="text-danger" href="{% url 'unwatch' item.id %}" style="text-decoration: none;"><i
+                                class="fa fa-heart"></i>♥</a>
+                    {% else %}
+                        <a class="text-danger" href="{% url 'watch' item.id %}" style="text-decoration: none;"><i
+                                class="far fa-heart"></i>♡</a>
+                    {% endif %}
+                    </div>
+
+                {% endfor %}
+
+
+            </div>
+            
+        </div>
+    </section>
+
+
+
+{% endblock %}

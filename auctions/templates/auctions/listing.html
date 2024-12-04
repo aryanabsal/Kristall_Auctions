@@ -1,0 +1,92 @@
+{% extends "auctions/layout.html" %}
+
+{% load static %}
+
+{% block body %}
+    <link href="{% static 'auctions/css/styles.css' %}" rel="stylesheet">
+    <main class="container">
+
+        <!-- Left Column / Headphones Image -->
+        <div>
+            <img style="width: 300px; height: 300px;" src="{{ auction.image_url }}" alt="">
+        </div>
+
+
+
+        <!-- Right Column -->
+        <div class="right-column">
+
+            <!-- Product Description -->
+            <div class="product-description">
+                <span>{{ auction.category }}</span>
+                <h1>{{ auction.title }}</h1>
+                <p>{{ auction.description }}</p>
+            </div>
+
+
+            <div>
+                <span style="font-size: 18px; font-family: sans-serif;"><strong>Author:</strong></span>
+                <span style="font-size: 18px; font-family: sans-serif;">{{ auction.user }}</span><br>
+                <span style="font-size: 18px; font-family: sans-serif;"><strong>Price: </strong></span>
+                <span style="font-size: 18px; font-family: sans-serif;">${{ auction.price }}</span>
+
+            </div>
+
+
+            <!-- Product Pricing -->
+            <div  class="product-price">
+                <span>Current Bid: ${{ bid.amount }}</span>
+                <!-- Add Bid Button -->
+                <button class="btn btn-success" onclick="window.dialog.showModal();">Add Bid</button>
+
+                    <dialog id="dialog" class="dialog">
+                        <h2 style="text-align: center;">Add Bid</h2>
+                        
+                        <div class="input-group-prepend" style="width: 220px; text-align: center;">
+                            {% if auction.price == 0 %}
+                                <p style="font-size: 15px; margin-bottom: 2px; margin-left: 17px;">Winner Bid: ${{ bid.amount }} by {{ bid.user }}</p>
+                            {% else %}
+                            <form action="{% url 'add_bid' auction.id %}" method="POST" style="margin-left: 10px;">
+                                {% csrf_token %}
+                                <p style="font-size: 11px; margin-bottom: 2px;">Current Bid: ${{ bid.amount }} by {{ bid.user }}</p>
+                                {{ bid_form }}
+                                <input class="btn btn-primary" type="submit" value="Bid" style=" max-width: 50px; max-height: 30px; margin-top: 8px; margin-left: 34%;">
+                            </form>
+                            {% endif %}
+                        </div>
+                        
+
+
+                        <button onclick="window.dialog.close();" aria-label="close" class="x">❌</button>
+                    </dialog>
+                
+                {% if auction.price == 0 %}
+                    <a class="btn btn-danger" style="margin-left: 4px; ">Bid Closed</a>
+                    {% if request.user == auction.user %}
+                            <a href="{% url 'del_bid' auction.id %}" style="margin-left: 5px;"><img style="height: 35px; width: 35px;" src="https://www.shutterstock.com/image-vector/trash-can-icon-symbol-delete-600nw-1454137346.jpg"></a>
+                    {% endif %}
+                {% else %}
+                    {% if request.user == auction.user %}
+                            <a class="btn btn-danger" href="{% url 'close_bid' auction.id %}" style="margin-left: 5px;">Close Bid</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+
+
+
+
+    </main>
+
+    <!-- comment view block -->
+    {% block combody %}
+    {% endblock %}
+
+
+
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" charset="utf-8"></script>
+    <script src="script.js" charset="utf-8"></script>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+# Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment
+venv/
+env/
+
+# Database
+db.sqlite3
+
+# Django secret key and environment variables
+*.env
+*.pot
+*.log
+
+# IDE and Editor folders
+.idea/
+.vscode/
+
+# Operating System files
+.DS_Store
+
+# Test output and cache
+*.coverage
+*.log
+
