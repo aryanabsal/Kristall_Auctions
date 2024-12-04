@@ -31,3 +31,6 @@ The Kristall Auctions website is a unique platform for sharing and managing auct
 ---
 
 With the Kristall Auctions website, users have a convenient and effective experience in buying and selling products. This platform enables sellers and buyers to engage confidently and effortlessly in the world of auctions.
+
+- **ATTENTION 1**: The database placed in GitHub is a demo database and does not contain any main information about the project.
+- **Install the requirements file before use**
